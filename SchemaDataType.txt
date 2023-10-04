@@ -1,0 +1,9 @@
+name: String
+roll: number
+isAdualt: true
+comments: []
+class: {}
+date: Date
+date: Defualt
+versionKey: false // versionKey mane mongodb te kono data insert korle protita collection
+// er sese akti kore Defualt version add hoi jodi ati proyojon na hoi tahole false set kore dite pari

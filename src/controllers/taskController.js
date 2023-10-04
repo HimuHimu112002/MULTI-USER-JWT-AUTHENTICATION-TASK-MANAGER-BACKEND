@@ -4,14 +4,21 @@ const TasksModel = require('../models/todoModel/TodoModel.js')
 
 // Create section =================
 async function taskController(req, res){
-    let {name, roll} = req.body
-
+  try{
+    let {name, roll, className, id,mobile,mobile2} = req.body
     let Task = new TasksModel({
-        name,
-        roll,
+      name,
+      roll,
+      className,
+      id,
+      mobile,
+      mobile2
     })
     Task.save()
     res.send({success: "Task Created Successfully"})
+  }catch(err){
+    res.status(200).json({ status: "error", error: err.toString() });
+  }
 }
 
 

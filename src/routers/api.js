@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 const {taskController,TaskRead,getAllProduct,getSingleProduct,deleteTask,updateTask} = require("../controllers/taskController.js")
 
-router.post("/taskController",taskController);
+router.post("/taskCreate",taskController);
 router.get("/TaskRead",TaskRead);
 
 router.get("/getall",getAllProduct);
