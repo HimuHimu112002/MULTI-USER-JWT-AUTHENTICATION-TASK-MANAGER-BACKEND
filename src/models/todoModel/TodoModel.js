@@ -8,7 +8,7 @@ const DataTodoModel = new Schema({
     roll:{
         type: Number,
         min:[2, "min number is 2 but you given number = {VALUE}"],
-        max:[4, "min number is 2 but you given number = {VALUE}"]
+        max:[20, "min number is 2 but you given number = {VALUE}"]
     },
     className:{
         type: String,

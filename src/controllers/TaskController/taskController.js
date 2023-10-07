@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const TasksModel = require('../models/todoModel/TodoModel.js')
+const TasksModel = require('../../models/todoModel/TodoModel.js')
 
 
 // Create section =================
@@ -28,6 +28,7 @@ async function TaskRead(req, res){
     res.send(data)
     res.send({success: "Task Read Successfully"})
 }
+
 
 // Get all data =================
 async function getAllProduct(req, res){
@@ -73,7 +74,6 @@ async function updateTask(req, res){
     }
 };
 
-  
 
 //! Delete Product ========================================
 async function deleteTask(req, res){
