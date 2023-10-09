@@ -5,6 +5,9 @@ const {taskController,TaskRead,getAllProduct,getSingleProduct,deleteTask,updateT
 // token create and decoded
 const {JWtTokenCreate,DecodeJWtToken} = require('../helper/JwtToken/jwttoken.js')
 
+
+const {UserRegistrationInfo,UserLoginInfo} = require('../controllers/UserAuthentication/Authentication.js')
+
 const Tokenauth = require("../controllers/TokenAuth/TokenIssueController.js")
 const TokenVerify = require("../midleware/TokenVerify.js")
 
@@ -17,10 +20,15 @@ router.get("/getSingleData/:id",getSingleProduct);
 router.post("/deleteTask/:id",deleteTask);
 router.post("/updateTask/:id",updateTask);
 
-
+// Token Create and decoded
 router.get("/createToken",JWtTokenCreate)
 router.get("/DecodeToken",DecodeJWtToken)
 
 router.get("/Tokenauth",Tokenauth)
+
+
+//==================== UserRegistrationInfo
+router.post("/UserRegistrationInfo",UserRegistrationInfo)
+router.post("/UserLoginInfo",UserLoginInfo)
 
 module.exports = router
