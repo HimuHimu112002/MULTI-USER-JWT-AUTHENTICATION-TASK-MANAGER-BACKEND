@@ -1,20 +1,30 @@
 const mongoose = require("mongoose");
+const jwt = require('jsonwebtoken');
 const UserResistration = require('../../models/userRegistration/UserRegistration.js')
 
 
 async function UserRegistrationInfo(req, res){
-    //let AuthInfoBody = req.body
     try{
         let {firstName, lastName, userName, email,password,phone} = req.body
+        //token create after registration
+        let Payload={
+            exp:Math.floor(Date.now()/1000) + (24 * 60 * 60),
+            data: {Name: "HMHimu", City: "Dhaka", admin: true}
+        }
+        let Token = jwt.sign(Payload, "SecretKey123");
 
         let UserInfo = new UserResistration({
             firstName, lastName, userName, email,password,phone
         })
         UserInfo.save()
-        res.send({success: "Registration Successfully"})
-      }catch(err){
+        res.send({success: "Registration Successfully", token:Token})
+        //res.send({token:Token});
+    }catch(err){
         res.send({ status: "error", error: err.toString() });
-      }
+    }
+
+
+    //let AuthInfoBody = req.body
     // UserResistration.create(AuthInfoBody, (err, data)=>{
     //     if(err){
           
