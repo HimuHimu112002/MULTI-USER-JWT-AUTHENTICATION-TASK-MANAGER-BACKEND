@@ -21,7 +21,6 @@ const DataTodoModel = new Schema({
     },
     TodoUpdateDate:{
         type: Date,
-        default: Date.now
     }
     // mobile:{
     //     // custom validation

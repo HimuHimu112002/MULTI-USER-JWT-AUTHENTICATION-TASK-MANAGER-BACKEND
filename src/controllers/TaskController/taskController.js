@@ -49,7 +49,7 @@ async function getSingleProduct(req, res){
     } catch (e) {
       res.status(200).json({ status: "error", error: e.toString() });
     }
-  };
+};
 
 
 //! Update todo 2 way ==============================
@@ -77,16 +77,76 @@ async function updateTask(req, res){
 };
 
 
-//! Delete Product ========================================
-async function deleteTask(req, res){
-    let id = new mongoose.Types.ObjectId(req.params.id);
-    let query = { _id: id };
+//! Update todo 2 way ==============================
+async function updateTodoStatus(req, res){
     try {
-      let data = await TasksModel.deleteOne(query);
-      res.status(200).json({ status: "Success", data: data });
+
+      let query = req.body["_id"];
+      let TodoStatus = req.body['TodoStatus']
+      let TodoUpdateDate = Date.now()
+      
+
+      let postBody={
+        TodoStatus:TodoStatus,
+        TodoUpdateDate:TodoUpdateDate
+      }
+      let data = await TasksModel.updateOne({_id: query}, {$set: postBody}, {upsert: true});
+      res.status(200).json({ status: "Status Update Success", data: data });
     } catch (e) {
       res.status(200).json({ status: "error", error: e.toString() });
     }
+
 };
-  
-module.exports = {taskController,TaskRead, getAllProduct,getSingleProduct,deleteTask,updateTask}
+
+
+//! Delete Todo ========================================
+async function deleteTask(req, res){
+    // let id = new mongoose.Types.ObjectId(req.params.id);
+    // let query = { _id: id };
+    // try {
+    //   let data = await TasksModel.deleteOne(query);
+    //   res.status(200).json({ status: "Success", data: data });
+    // } catch (e) {
+    //   res.status(200).json({ status: "error", error: e.toString() });
+    // }
+
+
+    let ids = req.body['_id']
+    try {
+      let data = await TasksModel.deleteOne({_id:ids});
+      res.status(200).json({ status: "Delete Success", data: data });
+    } catch (e) {
+      res.status(200).json({ status: "error", error: e.toString() });
+    }
+
+};
+
+
+//! FilterByTodoList ========================================
+async function FilterByTodoList(req, res){
+    let TodoStatus = req.body['TodoStatus']
+    // let UserName = req.body['UserName']
+    try {
+      let data = await TasksModel.find({TodoStatus: TodoStatus});
+      res.status(200).json({ status: "Find Success", data: data });
+    } catch (e) {
+      res.status(200).json({ status: "error", error: e.toString() });
+    }
+
+};
+
+
+//! FilterByDateList problem ase ========================================
+async function FilterByDateList(req, res){
+    let FormDate = req.body['TodoDate']
+    let TodoUpdateDate = req.body['TodoUpdateDate']
+    try {
+      let data = await TasksModel.find({ToCreateDate:{$gte: new Date(FormDate), $lte:new Date(TodoUpdateDate)}});
+      res.status(200).json({ status: "Find Date Success", data: data });
+    } catch (e) {
+      res.status(200).json({ status: "error", error: e.toString() });
+    }
+
+};
+
+module.exports = {taskController,TaskRead, getAllProduct,getSingleProduct,deleteTask,updateTask,updateTodoStatus,FilterByTodoList,FilterByDateList}
